@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GrocEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F1E1;
+            color: #333;
+        }
+
+        header {
+            background-color: #2D6A4F;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 5px solid #A8D5BA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-container {
+            width: 80%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .empty-cart-message {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #d9534f;
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+            padding-left: 15px;
+        }
+
+        .cart-item-info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .cart-item-info p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity button {
+            padding: 5px 10px;
+            font-size: 1rem;
+            border: none;
+            background: #48b875;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .quantity button:hover {
+            background: #2D6A4F;
+        }
+
+        .remove-button {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background: #c9302c;
+        }
+
+        .total-section {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            background: #48b875;
+            color: black;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .checkout-btn:hover {
+            background: #2D6A4F;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <span>GrocEase - Shopping Cart</span>
+</header>
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+    <div id="cart-content">
+        <p class="empty-cart-message">Ooh no!! Your cart is empty</p>
+    </div>
+
+    <div class="total-section">
+        Total: ₹<span id="total-price">0</span>
+    </div>
+
+    <a href="#" class="checkout-btn" id="checkout-btn" style="display: none;">Proceed to Checkout</a>
+</div>
+
+<script>
+    let cart = []; // This will store the added items
+    let totalPrice = 0;
+
+    function addItem(name, price, imgSrc) {
+        cart.push({ name, price, imgSrc, quantity: 1 });
+        updateCart();
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function updateQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;
+            updateCart();
+        }
+    }
+
+    function updateCart() {
+        const cartContent = document.getElementById("cart-content");
+        const totalPriceElement = document.getElementById("total-price");
+        const checkoutBtn = document.getElementById("checkout-btn");
+
+        cartContent.innerHTML = "";
+
+        if (cart.length === 0) {
+            cartContent.innerHTML = `<p class="empty-cart-message">Ooh no!! Your cart is empty :( </p>`;
+            checkoutBtn.style.display = "none";
+            totalPriceElement.innerText = "0";
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            cartContent.innerHTML += `
+                <div class="cart-item">
+                    <img src="${item.imgSrc}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>₹${item.price}</p>
+                    </div>
+                    <div class="quantity">
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                    <button class="remove-button" onclick="removeItem(${index})">Remove</button>
+                </div>
+            `;
+        });
+
+        totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        totalPriceElement.innerText = totalPrice;
+        checkoutBtn.style.display = "block";
+    }
+</script>
+
+</body>
+</html>

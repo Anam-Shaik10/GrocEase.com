@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrocEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F4F1E1;
+            color: #333;
+        }
+
+        /* Header Section */
+        header {
+    background-color: #2D6A4F;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 5px solid #A8D5BA;
+    display: flex;
+    justify-content: center; /* Centers everything */
+    align-items: center; /* Ensures vertical alignment */
+    gap: 20px; /* Adds spacing between elements */
+}
+        
+        /* Search Bar Styling */
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 2px solid white;
+            border-radius: 25px;
+            padding: 5px;
+            width: 250px;
+            background-color: white;
+        }
+
+        .search-bar {
+            border: none;
+            outline: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #2D6A4F;
+            padding: 8px;
+        }
+
+        .search-button:hover {
+            color: #48b875;
+        }
+
+        /* Add to Cart Icon */
+        .cart-icon {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .cart-icon:hover {
+            color: #A8D5BA;
+        }
+
+         /* Hero Section */
+         .hero {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px 30px;
+            border-radius: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px 30px;
+            border-radius: 12px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #48b875;
+            padding: 15px 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #458669;
+            transform: scale(1.05);
+        }
+
+        /* Featured Section */
+        .featured {
+            padding: 60px 20px;
+            background: #F8F4E1;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: #F2EFE7;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            cursor: pointer;
+            width: 280px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .category-card h3 {
+            font-size: 1.6rem;
+            margin: 15px 0 10px;
+            color: #222;
+        }
+
+        .category-card p {
+            font-size: 1rem;
+            color: #555;
+            padding-bottom: 20px;
+        }
+
+        .category-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Keeps text color consistent */
+    display: inline-block; /* Ensures smooth clickable area */
+}
+
+.category-link:visited, 
+.category-link:hover, 
+.category-link:active {
+    text-decoration: none; /* Prevents underlines on hover and click */
+}
+
+
+        /* CTA Section */
+        .cta-section {
+            background-color: #A8D5BA;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2D6A4F;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Header -->
+   <header>
+    <span>GrocEase - Your grocery shopping, simplified!</span>
+    <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-bar">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <button class="cart-icon"><i class="fas fa-shopping-cart"></i></button>
+</header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slide active"><img src="slide2.jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="slide1.jpg.jpg" alt="Slide 2"></div>
+        <div class="slide"><img src="slide3.jpg" alt="Slide 3"></div>
+        <div class="slide"><img src="slide4.jpg" alt="Slide 4"></div>
+        <div class="slide"><img src="slide5.jpg" alt="Slide 5"></div>
+        <div class="slide"><img src="slide6.jpg" alt="Slide 6"></div>
+
+        <div class="hero-content">
+            <h1>Fresh Groceries Delivered Fast</h1>
+            <p>Get your groceries with ease and convenience at the tap of a button.</p>
+            <a href="#" class="cta-button">Start Shopping</a>
+        </div>
+    </section>
+
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        let index = 0;
+
+        function showNextSlide() {
+            slides[index].classList.remove("active");
+            index = (index + 1) % slides.length;
+            slides[index].classList.add("active");
+        }
+
+        setInterval(showNextSlide, 3000); // 5-second interval
+    </script>
+
+        <!-- Featured Categories -->
+        <section class="featured">
+            <h2 class="section-title">Featured Categories</h2>
+            <div class="category-grid">
+                
+                <a href="newchicken.html" class="category-link">
+                    <div class="category-card">
+                        <img src="groceries.jpg" alt="Grocery & Kitchen">
+                        <h3>Grocery & Kitchen</h3>
+                        <p>All your daily essentials in one place.</p>
+                    </div>
+                </a>
+    
+                <a href="newsnacks.html" class="category-link">
+                    <div class="category-card">
+                        <img src="snacks2.png" alt="Snacks & Drinks">
+                        <h3>Snacks & Drinks</h3>
+                        <p>Refreshments and treats for every mood.</p>
+                    </div>
+                </a>
+    
+                <a href="newchicken.html" class="category-link">
+                    <div class="category-card">
+                        <img src="chicken.jpg" alt="Chicken & Meat">
+                        <h3>Chicken & Meat</h3>
+                        <p>Fresh meat and poultry, delivered fast.</p>
+                    </div>
+                </a>
+    
+            </div>
+        </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Experience the Easiest Grocery Shopping</h2>
+        <p>Join thousands of happy customers and start shopping today!</p>
+        <a href="#" class="cta-button">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 GrocEase. All rights reserved.</p>
+        <a href="#">About Us</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">FAQs</a>
+    </footer>
+
+</body>
+</html>
